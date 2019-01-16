@@ -1,5 +1,4 @@
-echo "Test"
-exit
+sudo -i
 
 sudo apt-get install tmux git
 
