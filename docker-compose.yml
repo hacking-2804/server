@@ -1,0 +1,51 @@
+version: '3'
+services:
+  # Accessible Course Material
+  accessible-course-material:
+    build:
+      context: ../accessible-course-material
+      dockerfile: ../accessible-course-material/docker/Dockerfile
+    ports:
+      - '4003:8000'
+  
+  # Visualizing Concepts
+  visualizing-concepts:
+
+  # Course Exercises
+  course-exercises-web-server:
+    build:
+      context: ./
+      dockerfile: web_server/Dockerfile
+    ports: '4000:4000'
+
+  course-exercises-data-server:
+    build:
+      context: data_server/
+      dockerfile: Dockerfile
+    ports: '4001:4001'
+
+  course-exercises-database:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - '4002:27017'
+
+  # Nginx
+  nginx-ssl-proxy:
+    build:
+      context: nginx-ssl/
+      dockerfile: nginx-ssl/Dockerfile
+    restart: always
+    environment:
+      SERVERNAME: discretemath.net
+      EXTRANAMES: discretemath.net
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/etc/letsencrypt"
