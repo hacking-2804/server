@@ -6,39 +6,41 @@ services:
       context: ../accessible-course-material
       dockerfile: docker/Dockerfile
     ports:
-      - '4003:8000'
+      - '4003:4003'
   
-  # Visualizing Concepts
-  visualizing-concepts:
-    build:
-      context: ../visualizing-concepts
-      dockerfile: docker/Dockerfile
-    ports:
-      - '4004:8000'
+  # # Visualizing Concepts
+  # visualizing-concepts:
+  #   build:
+  #     context: ../visualizing-concepts
+  #     dockerfile: docker/Dockerfile
+  #   ports:
+  #     - '4004:4004'
 
-  # Course Exercises
-  course-exercises-web-server:
-    build:
-      context: ../course-exercises/web_server
-    ports:
-      - '4000:4000'
+  # # Course Exercises
+  # course-exercises-web-server:
+  #   build:
+  #     context: ../course-exercises
+  #     dockerfile: ./web_server/Dockerfile
+  #   ports:
+  #     - '4000:4000'
 
-  course-exercises-data-server:
-    build:
-      context: ../course-exercises/data_server
-    ports:
-      - '4001:4001'
+  # course-exercises-data-server:
+  #   build:
+  #     context: ../course-exercises
+  #     dockerfile: ./data_server/Dockerfile
+  #   ports:
+  #     - '4001:4001'
 
-  course-exercises-database:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-    volumes:
-      - data-volume:/data/db
-    ports:
-      - '4002:27017'
+  # course-exercises-database:
+  #   image: mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+  #   volumes:
+  #     - data-volume:/data/db
+  #   ports:
+  #     - '4002:27017'
 
   # Nginx
   nginx-ssl-proxy:
