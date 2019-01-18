@@ -1,9 +1,7 @@
-sudo -i
-
 sudo apt-get update
 sudo apt-get install tmux git -y
 
-# install docker
+# Install Docker
 sudo apt-get install \
     apt-transport-https \
     ca-certificates \
@@ -17,12 +15,15 @@ sudo add-apt-repository \
    stable"
 sudo apt-get install docker-ce -y
 sudo groupadd docker
-sudo usermod -aG docker $usermod
+sudo usermod -aG docker $USER
 sudo service docker start
 
+# Clone the repos
 git clone https://github.com/hacking-2804/accessible-course-material.git
 git clone https://github.com/hacking-2804/course-exercises.git
 git clone https://github.com/hacking-2804/visualizing-concepts.git
 git clone https://github.com/hacking-2804/server.git
 
-# docker-compose up
+cd server/
+
+docker-compose up -d
