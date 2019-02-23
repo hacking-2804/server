@@ -8,53 +8,53 @@ services:
     ports:
       - '4003:4003'
   
-  # # Visualizing Concepts
-  # visualizing-concepts:
-  #   build:
-  #     context: ../visualizing-concepts
-  #     dockerfile: docker/Dockerfile
-  #   ports:
-  #     - '4004:4004'
-
-  # # Course Exercises
-  # course-exercises-web-server:
-  #   build:
-  #     context: ../course-exercises
-  #     dockerfile: ./web_server/Dockerfile
-  #   ports:
-  #     - '4000:4000'
-
-  # course-exercises-data-server:
-  #   build:
-  #     context: ../course-exercises
-  #     dockerfile: ./data_server/Dockerfile
-  #   ports:
-  #     - '4001:4001'
-
-  # course-exercises-database:
-  #   image: mongo
-  #   restart: always
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: example
-  #   volumes:
-  #     - data-volume:/data/db
-  #   ports:
-  #     - '4002:27017'
-
-  # Nginx
-  nginx-ssl-proxy:
+  # Visualizing Concepts
+  visualizing-concepts:
     build:
-      context: nginx-ssl/
+      context: ../visualizing-concepts
+      dockerfile: docker/Dockerfile
+    ports:
+      - '4004:4004'
+
+  # Course Exercises
+  course-exercises-web-server:
+    build:
+      context: ../course-exercises
+      dockerfile: ./web_server/Dockerfile
+    ports:
+      - '4000:4000'
+
+  course-exercises-data-server:
+    build:
+      context: ../course-exercises
+      dockerfile: ./data_server/Dockerfile
+    ports:
+      - '4001:4001'
+
+  course-exercises-database:
+    image: mongo
     restart: always
     environment:
-      SERVERNAME: discretemath.ca
-      EXTRANAMES: discretemath.ca
-    ports:
-      - "80:80"
-      - "443:443"
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - "/etc/letsencrypt"
+      - data-volume:/data/db
+    ports:
+      - '4002:27017'
+
+  # Nginx
+  # nginx-ssl-proxy:
+  #   build:
+  #     context: nginx-ssl/
+  #   restart: always
+  #   environment:
+  #     SERVERNAME: discretemath.ca
+  #     EXTRANAMES: discretemath.ca
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - "/etc/letsencrypt"
 
 # Volume for MongoDB
 volumes:
